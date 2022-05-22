@@ -8,16 +8,42 @@ if(!todosList){
     todosList = []
 }
 todosList.forEach(element => {
-    createTodo(element.todoText)
+    console.log(element);
+    createTodo(element.todo.text, element.todo.locked)
 });
 
 common.addEventListener("click", (e) => {
+    let todo = e.target.closest(".todo"); if(!todo) return
+    let trashIcon = todo.querySelector("[name = 'trash-outline']")
+    let lockClosedIcon = todo.querySelector("[name = 'lock-closed-outline']")
+    let lockOpenIcon = todo.querySelector("[name = 'lock-open-outline']")
 
-    if(e.target.tagName === "ION-ICON"){
-        e.target.closest(".todo").remove()
-        updateTodos()
+    switch(e.target) {
+        case trashIcon: {
+            if(lockOpenIcon){
+                e.target.closest(".todo").remove()
+                // updateTodos()
+            }
+            else{
+                lockClosedIcon.classList.add("shake")
+                setTimeout(() => {
+                    lockClosedIcon.classList.remove("shake")
+                }, 500);
+            }
+            break
+        }
+        case lockClosedIcon: {
+            e.target.setAttribute("name", "lock-open-outline")
+            updateTodos()
+            break
+        }
+        case lockOpenIcon: {
+            e.target.setAttribute("name", "lock-closed-outline")
+            updateTodos()
+            break
+        }
     }
-    input.focus()
+
 })
 
 form.addEventListener("submit", (e) => {
@@ -35,16 +61,20 @@ form.addEventListener("submit", (e) => {
 })
 
 //! Functions
-function createTodo(text) {
+function createTodo(text, locked = true) {
     let newTodo = document.createElement('div')
     let newTodoText = document.createElement('p')
+    let newLockIcon = document.createElement('ion-icon')
     let newDeleteIcon = document.createElement('ion-icon')
     
     newTodo.classList.add("todo")
     newTodoText.textContent = text
+    if(locked == true)  newLockIcon.setAttribute("name", "lock-closed-outline")
+    else                newLockIcon.setAttribute("name", "lock-open-outline")
     newDeleteIcon.setAttribute("name", "trash-outline")
     
     newTodo.appendChild(newTodoText)
+    newTodo.appendChild(newLockIcon)
     newTodo.appendChild(newDeleteIcon)
     common.appendChild(newTodo)
 }
@@ -54,7 +84,24 @@ function updateTodos() {
     let todosList = []
 
     todosDivs.forEach(element => {
-        todosList.push({"todoText": element.textContent})
+
+        let locked = element.querySelector("[name = 'lock-closed-outline']")
+        if(locked){
+            todosList.push({"todo": 
+                {
+                    "text": element.textContent,
+                    "locked": true
+                }
+            })
+        }
+        else{
+            todosList.push({"todo": 
+                {
+                    "text": element.textContent,
+                    "locked": false
+                }
+            })
+        }
 
     })
     localStorage.setItem("todosList", JSON.stringify(todosList))
