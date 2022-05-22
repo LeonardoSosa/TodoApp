@@ -27,22 +27,20 @@ body {
 }
 
 /*! FORM */
-.container-form {
+.form {
     background-color: #8129df;
-
+    
     width: 100%;
     padding: .8rem .7rem;
     
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
-}
 
-form {
     display: flex;
     gap: 1rem;
 }
 
-form input {
+.form__input-text {
     color: white;
     background-color: #9a56e4;
 
@@ -53,22 +51,22 @@ form input {
     border-radius: 1rem;
 }
 
-form input::placeholder {
+.form__input-text::placeholder {
     color: white;
     opacity: .5;
 }
 
-form input:focus {
+.form__input-text:focus {
     outline: none;
 }
 
 /*! TODOS */
-.container-categories {
+.categories-container {
     width: 100%;
     padding-inline: 1rem;
 }
 
-.container-categories > *{
+.categories-container > *{
     width: 100%;
 
     margin-bottom: 1.5rem;
@@ -77,8 +75,7 @@ form input:focus {
     flex-direction: column;
     gap: 1rem;
 }
-
-.container-categories h2 {
+.category__title {
     color: #8129df;
 }
 
@@ -94,16 +91,15 @@ form input:focus {
     align-items: center;
 }
 
-.todo p::first-letter {
-    text-transform: uppercase;
-}
-
-.todo p {
+.todo__p {
     line-height: 1.5;
     margin-right: auto;
 }
+.todo__p::first-letter {
+    text-transform: uppercase;
+}
 
-.todo ion-icon {
+.todo__icon {
     color: #4b4646;
     font-size: 1.5rem;
 
@@ -119,19 +115,18 @@ form input:focus {
 
 }
 
-.todo ion-icon:hover {
+.todo__icon--trash:hover {
     color: #ff4949;
     background-color: rgba(255, 101, 90, 0.1);
     box-shadow: 0 0 10px rgba(255, 101, 90, 0.4);
 }
-
-.todo ion-icon[name = "lock-closed-outline"]:hover, .todo ion-icon[name = "lock-open-outline"]:hover {
+.todo__icon--lock:hover {
     color: #2a55d7;
     background-color: rgba(68, 102, 203, 0.1);
     box-shadow: 0 0 10px rgba(68, 102, 203, 0.4);
 }
 
-.todo ion-icon.shake {
+.todo__icon.shake {
     animation: shake .3s ease-in-out;
 }
 
