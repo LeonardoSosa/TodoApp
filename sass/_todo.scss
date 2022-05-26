@@ -1,0 +1,65 @@
+.todo {
+    /*TA BUENO PARA PROBAR*/
+    // flex-grow: 1;
+    
+    background-color: #fffaff;
+    
+    padding: 1rem;
+    
+    border-radius: 0.3rem;
+    box-shadow: 0 0 .3rem rgba(0, 0, 0, .1);
+    
+    display: flex;
+    align-items: center;
+}
+
+.todo__p {
+    word-break: break-word;
+    line-height: 1.5;
+
+    margin-right: auto;
+}
+.todo__p::first-letter {
+    text-transform: uppercase;
+}
+
+.todo__icon {
+    color: #4b4646;
+    font-size: 1.5rem;
+
+    margin-left: .5rem;
+    padding: .5rem;
+    aspect-ratio: 1/1;
+
+    border-radius: 50%;
+    cursor: pointer;
+
+    transition: all .2s ease-in-out;
+    backface-visibility: hidden;    /* Use with 'transform: scale' to prevent blur */
+
+}
+
+.todo__icon--trash:hover {
+    color: #ff4949;
+    background-color: rgba(255, 101, 90, 0.1);
+    box-shadow: 0 0 10px rgba(255, 101, 90, 0.4);
+}
+.todo__icon--lock:hover {
+    color: #2a55d7;
+    background-color: rgba(68, 102, 203, 0.1);
+    box-shadow: 0 0 10px rgba(68, 102, 203, 0.4);
+}
+
+.todo__icon.shake {
+    animation: shake .3s ease-in-out;
+}
+
+@keyframes shake {
+    25% {
+        transform: rotate(30deg);
+    }
+
+    75% {
+        transform: rotate(-30deg);
+    }
+}

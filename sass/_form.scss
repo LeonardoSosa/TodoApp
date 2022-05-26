@@ -1,0 +1,40 @@
+.form {
+    background-color: #8129df;
+    
+    width: 100%;
+    padding: .8rem .7rem;
+    
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+
+    display: flex;
+    gap: 1rem;
+}
+
+.form__input-text {
+    color: white;
+    background-color: #9a56e4;
+
+    width: 100%;
+    padding: .5rem 1rem;
+
+    border: none;
+    border-radius: 1rem;
+}
+
+.form__input-text::placeholder {
+    color: white;
+    opacity: .5;
+}
+
+.form__input-text:focus, .form__select-category:focus {
+    outline: none;
+}
+
+.form__select-category {
+    width: 10%;
+    padding-inline: .5rem;
+
+    border: none;
+    border-radius: 1rem;
+}

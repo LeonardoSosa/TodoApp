@@ -11,20 +11,30 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="sass/css/index.css">
     <script src="main.js" defer></script>
 </head>
 <body>
     <form class="form">
         <input class="form__input-text" type="text" placeholder="Agregar nueva tarea..." autocomplete="off" autofocus>
+        <select class="form__select-category">
+            <!-- Options are generated via js -->
+        </select>
     </form>
 
     <div class="categories-container">
 
-        <div class="category category--common">
+        <section class="category" data-category="common">
             <h2 class="category__title">Common</h2>
-            <!--? COMMON TODOS -->
-        </div>
+        </section>
+
+        <section class="category" data-category="moonhunters">
+            <h2 class="category__title">Moonhunters</h2>
+        </section>
+
+        <section class="category" data-category="otros">
+            <h2 class="category__title">Otros</h2>
+        </section>
 
     </div>
 

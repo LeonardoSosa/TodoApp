@@ -1,69 +1,78 @@
 const form = document.querySelector(".form")
-const input = document.querySelector(".form__input-text")
-const common = document.querySelector(".category--common")
+const formText = document.querySelector(".form__input-text")
+const formCategory = document.querySelector(".form__select-category")
+const categories = document.querySelectorAll(".category")
 
+updateFormCategory()
 // Load all todos from localStorage
-let todosList = JSON.parse(localStorage.getItem("todosList"))
-if(!todosList){
-    todosList = []
+let categoriesListJSON = JSON.parse(localStorage.getItem("categoriesListJSON"))
+if(!categoriesListJSON){
+    categoriesListJSON = []
 }
-todosList.forEach(element => {
-    console.log(element);
-    createTodo(element.todo.text, element.todo.locked)
+categoriesListJSON.forEach(category => {
+    category.todos.forEach(todo => {
+        createTodo(todo.text, todo.locked, category.name)
+    })
 });
 
 // Icons logic
-common.addEventListener("click", (e) => {
-    let todo = e.target.closest(".todo"); if(!todo) return
-    let trashIcon = todo.querySelector(".todo__icon--trash")
-    let lockClosedIcon = todo.querySelector("[name = 'lock-closed-outline']")
-    let lockOpenIcon = todo.querySelector("[name = 'lock-open-outline']")
+categories.forEach(category => {
+    category.addEventListener("click", (e) => {
+        let todo = e.target.closest(".todo"); if(!todo) return
+        let trashIcon = todo.querySelector(".todo__icon--trash")
+        let lockClosedIcon = todo.querySelector("[name = 'lock-closed-outline']")
+        let lockOpenIcon = todo.querySelector("[name = 'lock-open-outline']")
 
-    switch(e.target) {
-        case trashIcon: {
-            if(lockOpenIcon){
-                e.target.closest(".todo").remove()
-                // updateTodos()
-            }
-            else{
-                lockClosedIcon.classList.add("shake")
-                setTimeout(() => {
-                    lockClosedIcon.classList.remove("shake")
-                }, 500);
-            }
-            break
-        }
-        case lockClosedIcon: {
-            e.target.setAttribute("name", "lock-open-outline")
-            updateTodos()
-            break
-        }
-        case lockOpenIcon: {
-            e.target.setAttribute("name", "lock-closed-outline")
-            updateTodos()
-            break
-        }
-    }
+        console.log(e.target);
 
+        switch(e.target) {
+            case trashIcon: {
+                if(lockOpenIcon){
+                    todo.remove()
+                    updateTodos()
+                }
+                else{
+                    lockClosedIcon.classList.add("shake")
+                    setTimeout(() => {
+                        lockClosedIcon.classList.remove("shake")
+                    }, 500);
+                }
+                break
+            }
+            case lockClosedIcon: {
+                e.target.setAttribute("name", "lock-open-outline")
+                updateTodos()
+                break
+            }
+            case lockOpenIcon: {
+                e.target.setAttribute("name", "lock-closed-outline")
+                updateTodos()
+                break
+            }
+        }
+    
+    })
 })
 
 // Create todo from input
 form.addEventListener("submit", (e) => {
     e.preventDefault()
 
-    if(!input.value){
+    if(!formText.value){
         return
     }
     
-    createTodo(input.value)
+    createTodo(formText.value, true, formCategory.value)
     updateTodos()
     
-    input.value = ""
-    input.focus()
+    formText.value = ""
+    formText.focus()
 })
 
 //! Functions
-function createTodo(text, locked = true) {
+function createTodo(text, locked, category) {
+    let categoryContainer = document.querySelector(`[data-category=${category}]`)
+
     let newTodo = document.createElement('div')
     let newTodoText = document.createElement('p')
     let newLockIcon = document.createElement('ion-icon')
@@ -84,33 +93,48 @@ function createTodo(text, locked = true) {
     newTodo.appendChild(newTodoText)
     newTodo.appendChild(newLockIcon)
     newTodo.appendChild(newDeleteIcon)
-    common.appendChild(newTodo)
+    categoryContainer.appendChild(newTodo)
 }
 
 function updateTodos() {
-    let todosDivs = document.querySelectorAll(".todo")
-    let todosList = []
+    let categoriesListJSON = []
+    let categoriesNames = []
+    categories.forEach(category => categoriesNames.push(category.getAttribute("data-category")) );
 
-    todosDivs.forEach(element => {
+    categoriesNames.forEach( categoryName => {
+        let todos = document.querySelectorAll(`[data-category=${categoryName}] > .todo`)
+        let todosJSON = []
+        todos.forEach( todo => {
+            let locked = todo.querySelector("[name = 'lock-closed-outline']")
+            let lockedValue
+            if(locked) lockedValue = true
+            else lockedValue = false
 
-        let locked = element.querySelector("[name = 'lock-closed-outline']")
-        if(locked){
-            todosList.push({"todo": 
-                {
-                    "text": element.textContent,
-                    "locked": true
-                }
+            todosJSON.push({
+                "text": todo.textContent,
+                "locked": lockedValue
             })
-        }
-        else{
-            todosList.push({"todo": 
-                {
-                    "text": element.textContent,
-                    "locked": false
-                }
-            })
-        }
+        })
 
+
+        let categoryJSON = {
+            "name": categoryName,
+            "todos": todosJSON
+        }
+        categoriesListJSON.push(categoryJSON)
     })
-    localStorage.setItem("todosList", JSON.stringify(todosList))
+    localStorage.setItem("categoriesListJSON", JSON.stringify(categoriesListJSON))
+
 }
+
+function updateFormCategory() {
+    categories.forEach( category => {
+        let newOption = document.createElement("option")
+        newOption.textContent = category.getAttribute("data-category")
+        formCategory.appendChild(newOption)
+    })
+}
+// Regex MDN https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+// Expresiones regulares https://www.youtube.com/watch?v=wfogZfIS03U
+// Weather App https://www.youtube.com/watch?v=OE7kml0pigw
+// Css tricks https://www.youtube.com/watch?v=wfaDzSL6ll0

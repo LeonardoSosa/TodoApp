@@ -1,0 +1,20 @@
+.categories-container {
+    width: 100%;
+    padding-inline: 1rem;
+    padding-bottom: 1.5rem;
+
+    display: flex;
+    gap: 1rem;
+}
+
+.category {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    // width: 100%;
+    flex: 1 1 0;
+}
+.category__title {
+    color: #8129df;
+}
