@@ -3,7 +3,7 @@
         {
             "format": "expanded",
             "extensionName": ".css",
-            "savePath": "/sass/css",
+            "savePath": "web/sass/css",
             "savePathSegmentKeys": null,
             "savePathReplaceSegmentsWith": null
         }

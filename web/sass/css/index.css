@@ -137,9 +137,11 @@ a:hover {
 .todo__icon {
   color: #4b4646;
   font-size: 1.5rem;
+  flex: 0 0 auto;
+  aspect-ratio: 1/1;
+  /* Behaves differently in Chrome/Firefox */
   margin-left: 0.5rem;
   padding: 0.5rem;
-  aspect-ratio: 1/1;
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.2s ease-in-out;

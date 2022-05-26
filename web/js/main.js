@@ -134,7 +134,3 @@ function updateFormCategory() {
         formCategory.appendChild(newOption)
     })
 }
-// Regex MDN https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
-// Expresiones regulares https://www.youtube.com/watch?v=wfogZfIS03U
-// Weather App https://www.youtube.com/watch?v=OE7kml0pigw
-// Css tricks https://www.youtube.com/watch?v=wfaDzSL6ll0
