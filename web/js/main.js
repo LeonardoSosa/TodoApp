@@ -23,8 +23,6 @@ categories.forEach(category => {
         let lockClosedIcon = todo.querySelector("[name = 'lock-closed-outline']")
         let lockOpenIcon = todo.querySelector("[name = 'lock-open-outline']")
 
-        console.log(e.target);
-
         switch(e.target) {
             case trashIcon: {
                 if(lockOpenIcon){
@@ -74,25 +72,23 @@ function createTodo(text, locked, category) {
     let categoryContainer = document.querySelector(`[data-category=${category}]`)
 
     let newTodo = document.createElement('div')
-    let newTodoText = document.createElement('p')
-    let newLockIcon = document.createElement('ion-icon')
-    let newDeleteIcon = document.createElement('ion-icon')
-    
     newTodo.classList.add("todo")
 
-    newTodoText.classList.add("todo__p")
-    newTodoText.textContent = text
+    if(locked == true) {
+        newTodo.innerHTML += `
+            <p class="todo__p">${text}</p>
+            <ion-icon class="todo__icon--lock todo__icon" name="lock-closed-outline"></ion-icon>
+            <ion-icon class="todo__icon--trash todo__icon" name="trash-outline"></ion-icon>
+        `
+    }
+    else {
+        newTodo.innerHTML += `
+            <p class="todo__p">${text}</p>
+            <ion-icon class="todo__icon--lock todo__icon" name="lock-open-outline"></ion-icon>
+            <ion-icon class="todo__icon--trash todo__icon" name="trash-outline"></ion-icon>
+        `
+    }
 
-    newLockIcon.classList.add("todo__icon--lock", "todo__icon")
-    if(locked == true)  newLockIcon.setAttribute("name", "lock-closed-outline")
-    else                newLockIcon.setAttribute("name", "lock-open-outline")
-
-    newDeleteIcon.classList.add("todo__icon--trash", "todo__icon")
-    newDeleteIcon.setAttribute("name", "trash-outline")
-    
-    newTodo.appendChild(newTodoText)
-    newTodo.appendChild(newLockIcon)
-    newTodo.appendChild(newDeleteIcon)
     categoryContainer.appendChild(newTodo)
 }
 

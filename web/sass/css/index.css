@@ -97,17 +97,18 @@ a:hover {
 
 .categories-container {
   width: 100%;
-  padding-inline: 1rem;
-  padding-bottom: 1.5rem;
+  padding-inline: 1.5rem;
+  padding-bottom: 2.5rem;
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
 
 .category {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  flex: 1 1 0;
+  flex: 1 1 42ch;
 }
 
 .category__title {
@@ -125,6 +126,7 @@ a:hover {
 }
 
 .todo__p {
+  font-size: 1.1rem;
   word-break: break-word;
   line-height: 1.5;
   margin-right: auto;
